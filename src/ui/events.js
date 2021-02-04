@@ -1,13 +1,13 @@
 // @flow
 
-import {Event} from '../util/evented';
+import {Event} from '../util/evented.js';
 
-import DOM from '../util/dom';
+import DOM from '../util/dom.js';
 import Point from '@mapbox/point-geometry';
-import {extend} from '../util/util';
+import {extend} from '../util/util.js';
 
-import type Map from './map';
-import type LngLat from '../geo/lng_lat';
+import type Map from './map.js';
+import type LngLat from '../geo/lng_lat.js';
 
 /**
  * `MapMouseEvent` is the event type for mouse-related map events.
@@ -1298,4 +1298,23 @@ export type MapEvent =
      * @instance
      * @private
      */
-    | 'style.load';
+    | 'style.load'
+
+    /**
+     * Fired after speed index calculation is completed if speedIndexTiming option has set to true
+     *
+     * @private
+     * @event speedindexcompleted
+     * @memberof Map
+     * @instance
+     * @example
+     * // Initialize the map
+     * var map = new mapboxgl.Map({ // map options });
+     * map.speedIndexTiming = true;
+     * // Set an event listener that fires
+     * map.on('speedindexcompleted', function() {
+     *   console.log(`speed index is ${map.speedIndexNumber}`);
+     * });
+     */
+    | 'speedindexcompleted'
+;

@@ -1,10 +1,10 @@
 // @flow
 
-import DOM from '../../util/dom';
+import DOM from '../../util/dom.js';
 
-import {Event} from '../../util/evented';
+import {Event} from '../../util/evented.js';
 
-import type Map from '../map';
+import type Map from '../map.js';
 
 /**
  * The `BoxZoomHandler` allows the user to zoom the map to fit within a bounding box.
@@ -128,7 +128,7 @@ class BoxZoomHandler {
         } else {
             this._map.fire(new Event('boxzoomend', {originalEvent: e}));
             return {
-                cameraAnimation: map => map.fitScreenCoordinates(p0, p1, this._map.getBearing(), {linear: true})
+                cameraAnimation: map => map.fitScreenCoordinates(p0, p1, this._map.getBearing(), {linear: false})
             };
         }
     }

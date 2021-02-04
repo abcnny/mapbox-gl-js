@@ -1,14 +1,14 @@
-import {test} from '../../util/test';
+import {test} from '../../util/test.js';
 import {
     getArrayBuffer,
     getJSON,
     postData,
     getImage,
     resetImageRequestQueue
-} from '../../../src/util/ajax';
-import window from '../../../src/util/window';
-import config from '../../../src/util/config';
-import webpSupported from '../../../src/util/webp_supported';
+} from '../../../src/util/ajax.js';
+import window from '../../../src/util/window.js';
+import config from '../../../src/util/config.js';
+import webpSupported from '../../../src/util/webp_supported.js';
 
 test('ajax', (t) => {
     t.beforeEach(callback => {
@@ -110,7 +110,9 @@ test('ajax', (t) => {
         const jsdomImage = window.Image;
         window.Image = class {
             set src(src) {
-                setTimeout(() => this.onload());
+                setTimeout(() => {
+                    if (this.onload) this.onload();
+                });
             }
         };
 
@@ -200,7 +202,9 @@ test('ajax', (t) => {
         // jsdom doesn't call image onload; fake it https://github.com/jsdom/jsdom/issues/1816
         window.Image = class {
             set src(src) {
-                setTimeout(() => this.onload());
+                setTimeout(() => {
+                    if (this.onload) this.onload();
+                });
             }
         };
 

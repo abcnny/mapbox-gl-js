@@ -1,15 +1,16 @@
-import {test} from '../../util/test';
-import VectorTileSource from '../../../src/source/vector_tile_source';
-import {OverscaledTileID} from '../../../src/source/tile_id';
-import window from '../../../src/util/window';
-import {Evented} from '../../../src/util/evented';
-import {RequestManager} from '../../../src/util/mapbox';
+import {test} from '../../util/test.js';
+import VectorTileSource from '../../../src/source/vector_tile_source.js';
+import {OverscaledTileID} from '../../../src/source/tile_id.js';
+import window from '../../../src/util/window.js';
+import {Evented} from '../../../src/util/evented.js';
+import {RequestManager} from '../../../src/util/mapbox.js';
 
 const wrapDispatcher = (dispatcher) => {
     return {
         getActor() {
             return dispatcher;
-        }
+        },
+        ready: true
     };
 };
 
@@ -23,7 +24,11 @@ function createSource(options, transformCallback) {
         transform: {showCollisionBoxes: false},
         _getMapId: () => 1,
         _requestManager: new RequestManager(transformCallback),
-        style: {sourceCaches: {id: {clearTiles: () => {}}}}
+        style: {
+            _getSourceCaches: () => {
+                return [{clearTiles: () => {}}];
+            }
+        }
     });
 
     source.on('error', (e) => {
